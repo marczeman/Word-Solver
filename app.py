@@ -35,18 +35,26 @@ with st.expander("See description"):
 # Get user input
 
 rack_raw = st.text_input('Enter your rack (comma separated):', value = defaults['default_rack'], key = 'raw')
-rack = prep_rack(rack_raw)
-min_length = st.number_input('Minimum word length: ', min_value = 2, value = defaults['min_word_length'])
-max_length = st.number_input('Maximum word length: ' , min_value = 1, max_value = 15, value = len(''.join(rack)))
+rack, n_blank = prep_rack(rack_raw)
 
-button = st.button("Find best words")
+col3, col4, col5 = st.columns(3)
+with col3:
+    max_length = st.number_input('Maximum word length: ' , min_value = 1, max_value = 15, value = len(''.join(rack)))
+with col4:
+    min_length = st.number_input('Minimum word length: ', min_value = 2, value = max_length-2)
+with col5:
+    early_stop_input = st.checkbox('Early stop?', value = True if n_blank > 2 else False, help = 'For more than 2 blanks(?), it\'s best to stop early')
+    if early_stop_input:
+        n_best_input = st.number_input('\"Best\" N words: ', value = 7, help = 'Not really the best, just first few good words')
+    else:
+        n_best_input = 10000000
 
 
-
-if button:
+calc_button = st.button("Find best words")
+if calc_button:
 
         word_list_twl06 = load_words_online(dict_paths['url_twl06'])
-        valid_words = find_words(rack, word_list_twl06, min_length = min_length, max_length= max_length)
+        valid_words = find_words(rack, word_list_twl06, min_length = min_length, max_length= max_length, early_stop = early_stop_input, n_best = n_best_input)
         #valid_words.sort(reverse= True, key = len)
 
         valid_words_df = prep_results(valid_words)

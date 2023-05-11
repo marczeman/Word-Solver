@@ -2,7 +2,7 @@
 import itertools
 import string
 
-def find_words(rack, words, min_length = 2, max_length = None):
+def find_words(rack, words, min_length = 2, max_length = None, early_stop = False, n_best = None):
 
 
     print('Minimum word length is {}'.format(min_length))
@@ -19,6 +19,7 @@ def find_words(rack, words, min_length = 2, max_length = None):
     words_found = set()
     n_blank = rack.count('?') # counting number of blanks
 
+    stopping_flag = False
     for combination in itertools.product(alphabet, repeat=n_blank):
         pseudo_rack = []
         i = 0
@@ -29,13 +30,20 @@ def find_words(rack, words, min_length = 2, max_length = None):
             else:
                 pseudo_rack.append(item)
         # print(pseudo_rack)
-        for i in range(1, max_length+1):
+        for i in range(max_length, 0, -1): # start with larger permutations so can stop early if find big word
             for subset in itertools.permutations(pseudo_rack, i):
                 word = ''.join(subset).lower()
                 # print(word)
                 if word in filtered_word_list:
                     #print("found a word:", word)
                     words_found.add(word)
+                    if early_stop == True and len(words_found) >= n_best:
+                        stopping_flag = True
+                        break
+            if stopping_flag:
+                break
+        if stopping_flag:
+                break
 
     words_found_list = list(words_found)
     words_found_list.sort(reverse= True, key=lambda s: (len(s), s))

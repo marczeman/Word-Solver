@@ -6,11 +6,11 @@ def prep_rack(rack_raw):
 
     # Strip leading and trailing whitespace from each string in the list
     rack = [s.strip() for s in rack]
-
-    if rack.count('?') > 3:
+    n_blank = rack.count('?')
+    if n_blank > 3:
         st.error("Currently supports only up to 3 blanks(?) ")
 
-    return rack
+    return rack, n_blank
 
 def prep_rack_dict(rack_raw):
 
