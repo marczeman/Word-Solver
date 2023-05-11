@@ -2,11 +2,12 @@
 import requests
 import streamlit as st
 
-@st.cache
+@st.cache_data
 def load_words(file_path):
     with open(file_path, 'r') as f:
         return set(line.strip().lower() for line in f)
-@st.cache
+
+@st.cache_data
 def load_words_online(url):
     response = requests.get(url)
     word_list_txt = response.text
@@ -14,10 +15,6 @@ def load_words_online(url):
     lines = set(word_list_txt.strip().split('\n'))
     lines = {s.replace('\r', '') for s in lines}
     return lines
-
-
-
-
 
 
 # if __name__ == '__main__':

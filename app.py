@@ -17,7 +17,7 @@ from config import dict_paths, defaults, img_paths
 col1, col2 = st.columns(2)
 
 with col1:
-    st.title('Paperback Word Builder')
+    st.title('Paperback Helper')
 
 
 with col2:
