@@ -8,7 +8,7 @@ Created on Thu May 11 17:58:00 2023
 
 import streamlit as st
 import numpy as np
-from basic_solver import load_words_online, prep_rack, find_words, scrabble_score, prep_results
+from functions import load_words_online, prep_rack, find_words, scrabble_score, prep_results
 from config import paths, default_rack
 
 st.title('Scrabble Solver')

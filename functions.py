@@ -11,9 +11,6 @@ import string
 import itertools
 import requests
 
-paths = {'dict_only': './dict/CSW_2019.txt',
-         'dict_with_definitions': './dict/CSW_2019_def.txt',
-         'url_twl06': 'https://www.wordgamedictionary.com/twl06/download/twl06.txt'}
 
 def load_words(file_path):
     with open(file_path, 'r') as f:
