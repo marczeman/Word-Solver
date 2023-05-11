@@ -9,16 +9,16 @@ Created on Thu May 11 17:58:00 2023
 import streamlit as st
 import numpy as np
 from functions import load_words_online, prep_rack, find_words, scrabble_score, prep_results
-from config import paths, default_rack
+from config import paths, defaults
 
 st.title('Scrabble Solver')
 
 
 # Get user input
 
-rack_raw = st.text_input('Enter your rack (comma separated):', value = default_rack)
+rack_raw = st.text_input('Enter your rack (comma separated):', value = defaults['default_rack'])
 rack = prep_rack(rack_raw)
-min_length = st.number_input('Minimum word length: ', 2)
+min_length = st.number_input('Minimum word length: ', min_value = 2, value = defaults['min_word_length'])
 max_length = st.number_input('Maximum word length: ' , min_value = 1, max_value = 15, value = len(''.join(rack)))
 
 button = st.button("Find best words")

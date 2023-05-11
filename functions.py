@@ -5,7 +5,6 @@ Spyder Editor
 This is a temporary script file.
 """
 
-import numpy as np
 import pandas as pd
 import string
 import itertools
@@ -23,14 +22,6 @@ def load_words_online(url):
     lines = set(word_list_txt.strip().split('\n'))
     lines = {s.replace('\r', '') for s in lines}
     return lines
-# def find_words(letters, words):
-#     words_found = set()
-#     for i in range(1, len(letters) + 1):
-#         for subset in itertools.permutations(letters, i):
-#             word = ''.join(subset).lower()
-#             if word in words:
-#                 words_found.add(word)
-#     return list(words_found)
 
 def find_words(rack, words, min_length = 2, max_length = None):
 
