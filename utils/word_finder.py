@@ -2,16 +2,16 @@
 import itertools
 import string
 
-def find_words(rack, words, min_length = 2, max_length = None, early_stop = False, n_best = None):
+def find_words(rack, words, min_length = 2, max_length = None, early_stop = False, n_best = None, first_letter = None, last_letter = None):
 
-
-    print('Minimum word length is {}'.format(min_length))
-    if max_length is None:
-        max_length = len(''.join(rack))
-    print('Maximum word length is {}'.format(max_length))
 
     filtered_word_list = set(s for s in words if (len(s) <= max_length) & (len(s) >= min_length))
     # print(list(filtered_word_list)[1])
+    if first_letter is not None:
+        filtered_word_list = {s for s in filtered_word_list if s[0] == first_letter}
+
+    if last_letter is not None:
+        filtered_word_list = {s for s in filtered_word_list if s[-1] == last_letter}
 
     alphabet = string.ascii_lowercase
 

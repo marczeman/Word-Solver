@@ -11,14 +11,17 @@ def scrabble_score(word):
 def prep_results(result_list):
     # Create a list of dictionaries, where each dictionary represents a row of data
     data = []
-    for word in result_list:
-        row_dict = {'Word': word, 'Length': len(word), 'Scrabble Score': scrabble_score(word)}
-        data.append(row_dict)
+    if len(result_list) > 0:
+        for word in result_list:
+            row_dict = {'Word': word, 'Length': len(word), 'Scrabble Score': scrabble_score(word)}
+            data.append(row_dict)
 
-    # Create a DataFrame from the list of dictionaries
-    df = pd.DataFrame(data)
-    # Sort the DataFrame by 'Age' and then by 'Salary'
-    df_sorted = df.sort_values(['Length', 'Word'], ascending=[False, True]).reset_index(drop=True)
+        # Create a DataFrame from the list of dictionaries
+        df = pd.DataFrame(data)
+        # Sort the DataFrame by 'Age' and then by 'Salary'
+        df_sorted = df.sort_values(['Length', 'Word'], ascending=[False, True]).reset_index(drop=True)
 
 
-    return df_sorted
+        return df_sorted
+    else:
+        return pd.DataFrame([{'msg':'No valid words found!'}])

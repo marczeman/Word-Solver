@@ -14,6 +14,8 @@ from utils.rack_functions import prep_rack, prep_rack_dict
 from utils.results import prep_results, scrabble_score
 from config import dict_paths, defaults, img_paths
 
+word_list_twl06 = load_words_online(dict_paths['url_twl06'])
+
 col1, col2 = st.columns(2)
 
 with col1:
@@ -50,16 +52,30 @@ with col5:
         n_best_input = 10000000
 
 
+with st.expander("See advanced options"):
+    col6, col7, col8 = st.columns(3)
+    with col6:
+        first_letter_condition = st.checkbox('First letter condition', value = False, help = 'Only consider words with a particular first letter')
+        if first_letter_condition:
+            first_letter = st.text_input('First letter must be: ', value = rack[0], max_chars=1, help = 'Make sure it\'s part of your rack!')
+        else:
+            first_letter = None
+    with col7:
+        last_letter_condition = st.checkbox('Last letter condition', value = False, help = 'Only consider words with a particular last letter')
+        if last_letter_condition:
+            last_letter = st.text_input('Last letter must be: ', value = rack[-1], max_chars=1, help = 'Make sure it\'s part of your rack!')
+        else:
+            last_letter = None
+
+
 calc_button = st.button("Find best words")
 if calc_button:
-
-        word_list_twl06 = load_words_online(dict_paths['url_twl06'])
-        valid_words = find_words(rack, word_list_twl06, min_length = min_length, max_length= max_length, early_stop = early_stop_input, n_best = n_best_input)
-        #valid_words.sort(reverse= True, key = len)
-
+        valid_words = find_words(rack, word_list_twl06,
+                                 min_length = min_length, max_length= max_length,
+                                 early_stop = early_stop_input, n_best = n_best_input,
+                                 first_letter = first_letter, last_letter = last_letter)
         valid_words_df = prep_results(valid_words)
 
-        # Define Streamlit app layout and widgets
         st.markdown("## Possible words:")
         #my_array = np.random.rand(5, 3)
         #st.table(valid_words)
