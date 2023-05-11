@@ -4,3 +4,7 @@
 utils/__pycache__/word_lists.cpython-310.pyc
 *.cpython
 *.pyc
+utils/__pycache__/rack_functions.cpython-310.pyc
+utils/__pycache__/results.cpython-310.pyc
+utils/__pycache__/word_finder.cpython-310.pyc
+utils/__pycache__/word_lists.cpython-310.pyc
