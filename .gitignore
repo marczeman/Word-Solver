@@ -1,3 +1,6 @@
 /.DS_Store
 /__pycache__
 /scratch.py
+utils/__pycache__/word_lists.cpython-310.pyc
+*.cpython
+*.pyc

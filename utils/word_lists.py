@@ -1,11 +1,12 @@
 # -*- coding: utf-8 -*-
 import requests
+import streamlit as st
 
-
+@st.cache
 def load_words(file_path):
     with open(file_path, 'r') as f:
         return set(line.strip().lower() for line in f)
-
+@st.cache
 def load_words_online(url):
     response = requests.get(url)
     word_list_txt = response.text
