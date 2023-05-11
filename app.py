@@ -19,7 +19,6 @@ col1, col2 = st.columns(2)
 with col1:
     st.title('Paperback Helper')
 
-
 with col2:
     # Display game cover
     st.image(img_paths['cover_image'], width=150, caption='Paperback cover', use_column_width=False)
@@ -35,12 +34,14 @@ with st.expander("See description"):
 
 # Get user input
 
-rack_raw = st.text_input('Enter your rack (comma separated):', value = defaults['default_rack'])
+rack_raw = st.text_input('Enter your rack (comma separated):', value = defaults['default_rack'], key = 'raw')
 rack = prep_rack(rack_raw)
 min_length = st.number_input('Minimum word length: ', min_value = 2, value = defaults['min_word_length'])
 max_length = st.number_input('Maximum word length: ' , min_value = 1, max_value = 15, value = len(''.join(rack)))
 
 button = st.button("Find best words")
+
+
 
 if button:
 

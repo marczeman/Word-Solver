@@ -1,4 +1,4 @@
-
+import streamlit as st
 
 def prep_rack(rack_raw):
     # Split the input string into a list of strings
@@ -6,6 +6,9 @@ def prep_rack(rack_raw):
 
     # Strip leading and trailing whitespace from each string in the list
     rack = [s.strip() for s in rack]
+
+    if rack.count('?') > 3:
+        st.error("Currently supports only up to 3 blanks(?) ")
 
     return rack
 
