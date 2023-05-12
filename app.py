@@ -57,13 +57,15 @@ with st.expander("See advanced options"):
     with col6:
         first_letter_condition = st.checkbox('First letter condition', value = False, help = 'Only consider words with a particular first letter')
         if first_letter_condition:
-            first_letter = st.text_input('First letter must be: ', value = rack[0], max_chars=1, help = 'Make sure it\'s part of your rack!')
+            first_letter_input = st.text_input('First letter must be: ', value = rack[0], max_chars=1, help = 'Make sure it\'s part of your rack!')
+            first_letter = first_letter_input.lower()
         else:
             first_letter = None
     with col7:
         last_letter_condition = st.checkbox('Last letter condition', value = False, help = 'Only consider words with a particular last letter')
         if last_letter_condition:
-            last_letter = st.text_input('Last letter must be: ', value = rack[-1], max_chars=1, help = 'Make sure it\'s part of your rack!')
+            last_letter_input = st.text_input('Last letter must be: ', value = rack[-1], max_chars=1, help = 'Make sure it\'s part of your rack!')
+            last_letter = last_letter_input.lower()
         else:
             last_letter = None
 
