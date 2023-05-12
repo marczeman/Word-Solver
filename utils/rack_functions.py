@@ -1,6 +1,7 @@
 import streamlit as st
 
 def prep_rack(rack_raw):
+    bad_rack_flag = False
     # Split the input string into a list of strings
     rack = rack_raw.split(',')
 
@@ -9,8 +10,8 @@ def prep_rack(rack_raw):
     n_blank = rack.count('?')
     if n_blank > 3:
         st.error("Currently supports only up to 3 blanks(?) ")
-
-    return rack, n_blank
+        bad_rack_flag = True
+    return rack, n_blank, bad_rack_flag
 
 def prep_rack_dict(rack_raw):
 

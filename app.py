@@ -8,6 +8,7 @@ Created on Thu May 11 17:58:00 2023
 
 import streamlit as st
 import numpy as np
+import time
 from utils.word_lists import load_words_online, load_words
 from utils.word_finder import find_words
 from utils.rack_functions import prep_rack, prep_rack_dict
@@ -37,7 +38,7 @@ with st.expander("See description"):
 # Get user input
 
 rack_raw = st.text_input('Enter your rack (comma separated):', value = defaults['default_rack'], key = 'raw')
-rack, n_blank = prep_rack(rack_raw)
+rack, n_blank, bad_rack_flag = prep_rack(rack_raw)
 
 col3, col4, col5 = st.columns(3)
 with col3:
@@ -69,16 +70,27 @@ with st.expander("See advanced options"):
         else:
             last_letter = None
 
+if bad_rack_flag:
+   st.write('Fix your rack input!')
+else:
+    calc_button = st.button("Find best words")
 
-calc_button = st.button("Find best words")
-if calc_button:
-        valid_words = find_words(rack, word_list_twl06,
-                                 min_length = min_length, max_length= max_length,
-                                 early_stop = early_stop_input, n_best = n_best_input,
-                                 first_letter = first_letter, last_letter = last_letter)
-        valid_words_df = prep_results(valid_words)
+    if calc_button:
+            # Record the start time
+            start_time = time.time()
 
-        st.markdown("## Possible words:")
-        #my_array = np.random.rand(5, 3)
-        #st.table(valid_words)
-        st.dataframe(valid_words_df)
+            valid_words = find_words(rack, word_list_twl06,
+                                    min_length = min_length, max_length= max_length,
+                                    early_stop = early_stop_input, n_best = n_best_input,
+                                    first_letter = first_letter, last_letter = last_letter)
+            valid_words_df = prep_results(valid_words)
+
+            # Record the end time
+            end_time = time.time()
+
+            st.markdown("## Possible words:")
+            st.dataframe(valid_words_df)
+            # Calculate the time taken
+            time_taken = end_time - start_time
+            # Display the time taken
+            st.write("Time taken:", time_taken, "seconds")
